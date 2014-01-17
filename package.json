@@ -1,0 +1,14 @@
+{
+  "name": "trading-post",
+  "version": "0.0.1",
+  "description": "trade ng-conf prizes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "~3.4.8"
+  }
+}
