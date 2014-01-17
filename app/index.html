@@ -1,17 +1,20 @@
 <html>
 <head>
   <script src="https://cdn.firebase.com/v0/firebase.js"></script>
+  <script src="/js/angular.js"></script>
+  <script src="/js/angular-route.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js"></script>
   <script src="https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.min.js"></script>
   <script src="js/ui-bootstrap-tpls-0.10.0.min.js"></script>
+  <script src="js/trading-post.js"></script>
   <link href="css/bootstrap.css" rel="stylesheet" />
   <title>Trading post</title>
 </head>
-<body ng-app="trading-post">
+<body ng-app="tradingpost">
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
       <h1>Trading Post</h1>
-      hello
+      <div ng-view></div>
     </div>
   </div>
 </body>
