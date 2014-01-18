@@ -1,21 +1,51 @@
 <html>
 <head>
+  <!-- firebase --> 
   <script src="https://cdn.firebase.com/v0/firebase.js"></script>
+  <script src="https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.min.js"></script>
+
+  <!-- angular --> 
   <script src="/js/angular.js"></script>
   <script src="/js/angular-route.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js"></script>
-  <script src="https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.min.js"></script>
+  
+  
+  <!-- theme -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/bootstrap.css" /> 
+
+  <!-- bootstrap -->  
   <script src="js/ui-bootstrap-tpls-0.10.0.min.js"></script>
   <script src="js/lvl-uuid.js"></script>
   <script src="js/trading-post.js"></script>
-  <link href="css/bootstrap.css" rel="stylesheet" />
-  <title>Trading post</title>
+
+  <title>Swag Trader</title>
 </head>
-<body ng-app="tradingpost">
-  <div class="row">
+<body ng-app="trading-post" class="preview">
+
+  <div class="navbar navbar-fixed-top">
+   <div class="navbar-inner">
+     <div class="container">
+       <a class="brand" href="../">Swag Trader</a>
+       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+       </a>
+       <div class="nav-collapse " id="main-menu">
+        <ul class="nav" id="main-menu-left">
+          <li><a onclick="" href="#">Auctions</a></li>
+          <li><a id="swatch-link" href="#">Users</a></li>
+
+        </ul>
+      </div>
+     </div>
+   </div>
+
+
+   <div class="row">
     <div class="col-md-10 col-md-offset-1">
-      <h1>Trading Post</h1>
-      <div ng-view></div>
+      <h3>Trading Area</h3>
+    
     </div>
   </div>
 </body>
