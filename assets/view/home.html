@@ -1,15 +1,17 @@
-<h3>Available Items</h3>
+<h3 ng-show="loaded">Available Items</h3>
+<h3 ng-hide="loaded">Fetching Items</h3>
 
-<div ng-show="item.length">
-  <ul ng-repeat="item in items track by $index">
+<div ng-show="itemCount">
+  <ul ng-repeat="(key, item) in items">
     <li>
       {{item.name}}
+      <a href="#" ng-click="items.$remove(key)">Remove</a>
     </li>
   </ul>
 
   <a href="#/add-item">Add an item</a>
 </div>
 
-<div ng-hide="item.length">
+<div ng-hide="itemCount > 0 || !loaded">
   There are no items to be traded...<a style="margin-left:5px" href="/#add-item">add one</a>
 </div>

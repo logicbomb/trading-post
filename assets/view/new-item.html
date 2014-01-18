@@ -1,5 +1,7 @@
 <h3>Add an item</h3>
 
+<div ng-show="showAddedMessage">Item Added</div>
+
 <form>
   <div class="form-group">
     <label for="name">Name</label>
@@ -16,7 +18,7 @@
     <input type="text" class="form-control" ng-model="item.price" placeholder="guestimate" />
   </div>
 
-  <button ng-click="addItem()" class="btn btn-primary">Add item</button> 
+  <button ng-click="addItem()" ng-disabled="!item.name" class="btn btn-primary">Add item</button> 
   <a href="/" class="btn btn-default">Cancel</button>
   <a href="#" ng-click="reset()">Reset</a>
 </form>
