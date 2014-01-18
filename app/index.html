@@ -1,26 +1,26 @@
 <html>
 <head>
-  <!-- firebase --> 
-  <script src="https://cdn.firebase.com/v0/firebase.js"></script>
-  <script src="https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.min.js"></script>
 
   <!-- angular --> 
   <script src="/js/angular.js"></script>
   <script src="/js/angular-route.js"></script>
   
+  <!-- firebase --> 
+  <script src="https://cdn.firebase.com/v0/firebase.js"></script>
+  <script src="https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.min.js"></script>
   
   <!-- theme -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/bootstrap.css" /> 
 
-<!-- bootstrap -->  
-<script src="js/ui-bootstrap-tpls-0.10.0.min.js"></script>
+  <!-- bootstrap -->  
+  <script src="js/ui-bootstrap-tpls-0.10.0.min.js"></script>
   <script src="js/lvl-uuid.js"></script>
   <script src="js/trading-post.js"></script>
 
   <title>Swag Trader</title>
 </head>
-<body ng-app="trading-post" class="preview">
+<body ng-app="tradingpost" class="preview">
 
   <div class="navbar navbar-fixed-top">
    <div class="navbar-inner">
@@ -45,7 +45,7 @@
    <div class="row">
     <div class="col-md-10 col-md-offset-1">
       <h3>Trading Area</h3>
-    
+      <div ng-view></div>
     </div>
   </div>
 </body>
