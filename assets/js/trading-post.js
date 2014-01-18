@@ -41,7 +41,7 @@ app.controller("addCtl", ["$scope", "uuid", "tradingService", function($scope, u
     $scope.item = {
       name: '',
       price: '',
-      url: ''
+      url: 'https://cdn1.iconfinder.com/data/icons/ballicons-free/128/box.png'
     };
   }
 

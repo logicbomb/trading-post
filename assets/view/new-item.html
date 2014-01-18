@@ -1,22 +1,40 @@
+
 <h3>Add an item</h3>
 
-<form>
+<form class="form-horizontal" role="form">
   <div class="form-group">
-    <label for="name">Name</label>
-    <input type="text" class="form-control" ng-model="item.name" placeholder="swag item">
+    <label class="col-sm-1 control-label" for="name">Name</label>
+    <div class="col-sm-5">
+      <input type="text" class="form-control" ng-model="item.name" placeholder="swag item">  
+    </div>
   </div>
 
   <div class="form-group">
-    <label for="pictureUrl">Picture Url</label>
-    <input type="text" class="form-control" ng-model="item.url" placeholder="url of picture" />
+    <label class="col-sm-1 control-label" for="pictureUrl">Picture Url</label>
+    <div class="col-sm-5">
+      <input class="form-control" type="text" ng-model="item.url" placeholder="url of picture" />  
+    </div>
+    <div class="col-sm-1">
+      <img src="{{item.url}}" width="40" height="40" style="margin-top: -12px;" />
+    </div>
+
   </div>
 
   <div class="form-group">
-    <labelfor="price">Price</label>
-    <input type="text" class="form-control" ng-model="item.price" placeholder="guestimate" />
+    <label class="col-sm-2 control-label" for="price">Price</label>
+    <div class="col-sm-5">
+      <input type="text" class="form-control" ng-model="item.price" placeholder="guestimate" />
+    </div>
   </div>
 
+<div class="form-group">
+<div class="col-sm-offset-2 col-sm-5">
   <button ng-click="addItem()" class="btn btn-primary">Add item</button> 
   <a href="/" class="btn btn-default">Cancel</button>
-  <a href="#" ng-click="reset()">Reset</a>
-</form>
+    <a href="#" ng-click="reset()">Reset</a>
+</a>
+</div>
+  
+</div>
+  </form>
+
