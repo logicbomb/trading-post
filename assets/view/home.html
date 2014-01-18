@@ -1,15 +1,28 @@
-<h3>Available Items</h3>
+<h3 ng-show="loaded">Available Items</h3>
+<h3 ng-hide="loaded">Fetching Items</h3>
 
-<div ng-show="item.length">
-  <ul ng-repeat="item in items track by $index">
-    <li>
-      {{item.name}}
-    </li>
-  </ul>
+<div ng-show="itemCount">
+  <div class="unstyled" ng-repeat="(key, item) in items">
+    <div class="row" style="padding: 5px;">
+      
 
-  <a href="#/add-item">Add an item</a>
+      
+      <div class="col-sm-1">
+        <img class="pull-right" src="{{item.url}}" width="35" height="35" />
+      </div>
+      <div class="col-sm-5">
+        <h4> {{item.name}}  </h4>
+      </div>
+      
+      <img class="btn btn-link" src="img/minus.png" ng-click="items.$remove(key)" topic="remove" />
+    </div>
+  </div>
+  <div>
+      <a class="btn btn-primary" href="#/add-item" style="margin-left: 10px;" >New Item</a>
+  </div>
+  
 </div>
 
-<div ng-hide="item.length">
+<div ng-hide="itemCount > 0 || !loaded">
   There are no items to be traded...<a style="margin-left:5px" href="/#add-item">add one</a>
 </div>

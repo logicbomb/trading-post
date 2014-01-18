@@ -18,25 +18,39 @@ app.factory('tradingService', ["$firebase", "FIREBASE_URL", function($firebase, 
     userRef: u,
     itemRef: i,
 
-    getUsers: function() { return $firebase(u); },
-    getItems: function() { return $firebase(i); }
+    getUsers: function() { 
+      return $firebase(u); 
+    },
+    
+    getItems: function() { 
+      return $firebase(i);
+    }
   };
 }]);
 
 app.controller("homeCtl", ["$scope", "uuid", "tradingService", function($scope, uuid, tradingService) {  
-  $scope.addUser = function() {
-    tradingService.userRef.push(
-      { 
-        name: "User " +  Math.floor(Math.random() * 100),
-        location:  Math.floor(Math.random() * 100),
-        prize:  Math.floor(Math.random() * 100),
-        want: [ Math.floor(Math.random() * 100), Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)]
-      }
-    );
-  };
+  $scope.loaded = false;
+  $scope.itemCount = 0;
+  $scope.items = tradingService.getItems();
+
+  $scope.items.$on("loaded", function() {
+    $scope.loaded = true;
+    $scope.itemCount = $scope.items.$getIndex().length;
+    console.log($scope.items);
+  })
+  // $scope.addUser = function() {
+  //   tradingService.userRef.push(
+  //     { 
+  //       name: "User " +  Math.floor(Math.random() * 100),
+  //       location:  Math.floor(Math.random() * 100),
+  //       prize:  Math.floor(Math.random() * 100),
+  //       want: [ Math.floor(Math.random() * 100), Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)]
+  //     }
+  //   );
+  // };
 }]);
 
-app.controller("addCtl", ["$scope", "uuid", "tradingService", function($scope, uuid, tradingService) {
+app.controller("addCtl", ["$scope", "$timeout", "tradingService", function($scope, $timeout, tradingService) {
   $scope.reset = function() {
     $scope.item = {
       name: '',
@@ -47,6 +61,11 @@ app.controller("addCtl", ["$scope", "uuid", "tradingService", function($scope, u
 
   $scope.addItem = function() {
     tradingService.itemRef.push($scope.item);
+    $scope.reset();
+    $scope.showAddedMessage = true;
+    $timeout(function() {
+      $scope.showAddedMessage = false;
+    }, 750);
   }
 
   $scope.reset();

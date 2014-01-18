@@ -1,7 +1,13 @@
 
 <h3>Add an item</h3>
 
+
+
+
+
+
 <form class="form-horizontal" role="form">
+
   <div class="form-group">
     <label class="col-sm-1 control-label" for="name">Name</label>
     <div class="col-sm-5">
@@ -27,14 +33,15 @@
     </div>
   </div>
 
-<div class="form-group">
-<div class="col-sm-offset-2 col-sm-5">
-  <button ng-click="addItem()" class="btn btn-primary">Add item</button> 
-  <a href="/" class="btn btn-default">Cancel</button>
-    <a href="#" ng-click="reset()">Reset</a>
-</a>
-</div>
-  
-</div>
-  </form>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-5" style="padding-top: 10px;">
+      <button ng-click="addItem()" ng-disabled="!item.name" class="btn btn-primary">Add item</button> 
+      <a href="/" class="btn btn-default">Done</a>
+      <a class="btn btn-link" ng-click="reset()">Reset</a>
+      <h3 class="text-success" ng-show="showAddedMessage">Item Added</h3>
+    </div>
+
+  </div>
+</form>
 
