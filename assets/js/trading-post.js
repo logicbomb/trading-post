@@ -23,16 +23,6 @@ app.factory('tradingService', ["$firebase", "$firebaseSimpleLogin", "FIREBASE_UR
   var baseRef = new Firebase(FIREBASE_URL);
   var u = baseRef.child("users");
   var i = baseRef.child("items");
-  var theUser = null;
-
-  // var auth = new FirebaseSimpleLogin(baseRef, function(error, user) {
-  //   if (user) {
-  //     theUser = user;
-  //   } else if (error) {
-  //     console.log(JSON.stringify(error));
-  //   }
-  // });
-
   var auth = $firebaseSimpleLogin(baseRef);
 
   return {
@@ -48,11 +38,12 @@ app.factory('tradingService', ["$firebase", "$firebaseSimpleLogin", "FIREBASE_UR
     },
 
     isLoggedIn: function() {
-      return auth.user != null;
+      var user = auth.getCurrentUser();
+      return user != null;
     },
 
     getCurrentUser: function() {
-      return auth.user;
+      return auth.getCurrentUser();
     },
 
     logout: function() {
@@ -62,7 +53,7 @@ app.factory('tradingService', ["$firebase", "$firebaseSimpleLogin", "FIREBASE_UR
     login: function() {
       auth.$login("github", 
         { 
-          rememberMe: false, 
+          rememberMe: true, 
           scope: 'user:email' 
         });
     }
