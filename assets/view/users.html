@@ -1,0 +1,22 @@
+<ul class="unstyled">
+
+  <h3>Users</h3>
+
+  <li ng-repeat="user in users">
+    {{ user.name }}
+
+    <div class="muted">
+      Interested in
+      
+
+      <span ng-repeat="w in user.want">
+        <strong>{{ w }}</strong>
+      </span>
+    </div>
+
+    <pre>
+      {{ user | json }}
+    </pre>
+  </li>
+</ul>
+<button ng-click='addUser()'>Add user</button>

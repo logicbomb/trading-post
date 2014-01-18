@@ -21,6 +21,7 @@ app.configure(function(){
   app.use('/css', express.static(__dirname + '/assets/css'));
   app.use('/js', express.static(__dirname + '/assets/js'));
   app.use('/view', express.static(__dirname + '/assets/view'));
+  app.use('/img'), express.static(__dirname + '/assets/img'));
   app.use(express.static(__dirname + '/app'));
 });
 
