@@ -1,7 +1,15 @@
-this is some data from {{ url }}:
+<h3>Available Items</h3>
 
-<pre>
-{{ users | json }}
-</pre>
+<div ng-show="item.length">
+  <ul ng-repeat="item in items track by $index">
+    <li>
+      {{item.name}}
+    </li>
+  </ul>
 
-<button ng-click='addUser()'>Add user</button>
+  <a href="#/add-item">Add an item</a>
+</div>
+
+<div ng-hide="item.length">
+  There are no items to be traded...<a style="margin-left:5px" href="/#add-item">add one</a>
+</div>
