@@ -7,33 +7,33 @@ app.config(["$routeProvider", "$locationProvider", function($routeProvider, $loc
     .when("/", { controller: 'homeCtl', templateUrl: '/view/home.html'})
     .when("/add-item", { controller: 'addCtl', templateUrl: '/view/new-item.html'})
     .when("/login", { controller: 'loginCtl', templateUrl: '/view/login.html'})
-    .otherwise({ redirectTo: "/login" });
+    .otherwise({ redirectTo: "/" });
 }])
 .run(["$location", "$rootScope", "tradingService", function($location, $rootScope, tradingService) {
   $rootScope.$on('$routeChangeStart', function (event, next, current) {
-
-        // if route requires auth and user is not logged in
-        if ( $location.url() !== '/login' && !tradingService.isLoggedIn()) {
-            // redirect back to login
-            return $location.path("/login");
-        }
-
+      // if route requires auth and user is not logged in
+      if ( !tradingService.isLoggedIn() && $location.url() !== '/login') {
+          // redirect back to login
+          return $location.path("/login");
+      }
    });
 }]);
 
-app.factory('tradingService', ["$firebase", "FIREBASE_URL", function($firebase, FIREBASE_URL) {
+app.factory('tradingService', ["$firebase", "$firebaseSimpleLogin", "FIREBASE_URL", function($firebase, $firebaseSimpleLogin, FIREBASE_URL) {
   var baseRef = new Firebase(FIREBASE_URL);
   var u = baseRef.child("users");
   var i = baseRef.child("items");
   var theUser = null;
 
-  var auth = new FirebaseSimpleLogin(baseRef, function(error, user) {
-    if (user) {
-      theUser = user;
-    } else if (error) {
-      console.log(JSON.stringify(error));
-    }
-  });
+  // var auth = new FirebaseSimpleLogin(baseRef, function(error, user) {
+  //   if (user) {
+  //     theUser = user;
+  //   } else if (error) {
+  //     console.log(JSON.stringify(error));
+  //   }
+  // });
+
+  var auth = $firebaseSimpleLogin(baseRef);
 
   return {
     userRef: u,
@@ -48,19 +48,19 @@ app.factory('tradingService', ["$firebase", "FIREBASE_URL", function($firebase, 
     },
 
     isLoggedIn: function() {
-      return theUser != null;
+      return auth.user != null;
     },
 
     getCurrentUser: function() {
-      return theUser;
+      return auth.user;
     },
 
     logout: function() {
-      auth.logout();
+      auth.$logout();
     },
 
     login: function() {
-      auth.login("github", 
+      auth.$login("github", 
         { 
           rememberMe: false, 
           scope: 'user:email' 
@@ -96,7 +96,7 @@ app.controller("addCtl", ["$scope", "$timeout", "tradingService", function($scop
     $scope.item = {
       name: '',
       price: '',
-      url: 'https://cdn1.iconfinder.com/data/icons/ballicons-free/128/box.png'
+      url: 'https://cdn1.iconfinder.com/data/icons/ballicons-free/128/box.png',
     };
   }
 
