@@ -2,17 +2,38 @@ var app = angular.module("tradingpost",["ngRoute", "firebase", "lvl.services"]);
 
 app.constant("FIREBASE_URL", "https://scorching-fire-2975.firebaseio.com")
 
-app.config(["$routeProvider", function($routeProvider) {
+app.config(["$routeProvider", "$locationProvider", function($routeProvider, $locationProvider) {
   $routeProvider
     .when("/", { controller: 'homeCtl', templateUrl: '/view/home.html'})
     .when("/add-item", { controller: 'addCtl', templateUrl: '/view/new-item.html'})
-    .otherwise({ redirectTo: "/" });
+    .when("/login", { controller: 'loginCtl', templateUrl: '/view/login.html'})
+    .otherwise({ redirectTo: "/login" });
+}])
+.run(["$location", "$rootScope", "tradingService", function($location, $rootScope, tradingService) {
+  $rootScope.$on('$routeChangeStart', function (event, next, current) {
+
+        // if route requires auth and user is not logged in
+        if ( $location.url() !== '/login' && !tradingService.isLoggedIn()) {
+            // redirect back to login
+            return $location.path("/login");
+        }
+
+   });
 }]);
 
 app.factory('tradingService', ["$firebase", "FIREBASE_URL", function($firebase, FIREBASE_URL) {
   var baseRef = new Firebase(FIREBASE_URL);
   var u = baseRef.child("users");
   var i = baseRef.child("items");
+  var theUser = null;
+
+  var auth = new FirebaseSimpleLogin(baseRef, function(error, user) {
+    if (user) {
+      theUser = user;
+    } else if (error) {
+      console.log(JSON.stringify(error));
+    }
+  });
 
   return {
     userRef: u,
@@ -24,6 +45,26 @@ app.factory('tradingService', ["$firebase", "FIREBASE_URL", function($firebase, 
     
     getItems: function() { 
       return $firebase(i);
+    },
+
+    isLoggedIn: function() {
+      return theUser != null;
+    },
+
+    getCurrentUser: function() {
+      return theUser;
+    },
+
+    logout: function() {
+      auth.logout();
+    },
+
+    login: function() {
+      auth.login("github", 
+        { 
+          rememberMe: false, 
+          scope: 'user:email' 
+        });
     }
   };
 }]);
@@ -69,4 +110,8 @@ app.controller("addCtl", ["$scope", "$timeout", "tradingService", function($scop
   }
 
   $scope.reset();
+}]);
+
+app.controller("loginCtl", ["$scope", "tradingService", function($scope, tradingService) {
+  tradingService.login();
 }]);
